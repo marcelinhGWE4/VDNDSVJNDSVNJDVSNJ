@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Градиентный фон</title>
+  <script src="main-f137435b.js"></script>
+  <style>
+    /* Стиль для экрана загрузки */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Скрываем скроллинг */
+      background-color: #f0f0f0; /* Фон страницы */
+      font-family: sans-serif;
+    }
+
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7); /* Темный фон */
+      z-index: 1000; /* Делаем экран загрузки самым верхним */
+    }
+
+    #loading-message {
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    #loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 8px solid #fff;
+      border-radius: 50%;
+      border-color: #fff transparent #fff transparent; /* Цвета для анимации */
+      animation: spin 1.2s linear infinite; /* Анимация вращения */
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+     @keyframes scroll {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0; /* Скрыть изображение */
+        }
+        100% {
+            opacity: 1; /* Показать новое изображение */
+        }
+    }
+
+    .scroll {
+        animation: scroll 0.5s ease; /* Применяем анимацию */
+    }
+
+    /* Стиль для основного контента */
+    @font-face {
+        font-family: 'Cannonade';
+        src: url('Cannonade.ttf') format('truetype');
+    }
+    body {
+        margin: 0;
+        height: 100vh;
+        background: 
+            linear-gradient(to bottom, rgba(4, 107, 226, 0.8), rgba(30, 137, 214, 0.8)), /* Градиент */
+            url('zz2.png') no-repeat center center fixed; /* Фоновое изображение */
+        background-size: cover; /* Заполнение фона изображением */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Центрирование по горизонтали */
+        justify-content: center; /* Центрирование по вертикали */
+        color: white;
+        font-family: 'Rocks', Arial, sans-serif;
+        overflow: hidden; /* Скрываем полосы прокрутки */
+        -webkit-touch-callout: none; /* Скрываем меню по клику */
+        -webkit-user-select: none; /* Запрещаем выделение текста */
+        -khtml-user-select: none; /* Запрещаем выделение текста */
+        -moz-user-select: none; /* Запрещаем выделение текста */
+        -ms-user-select: none; /* Запрещаем выделение текста */
+        user-select: none; /* Запрещаем выделение текста */
+        -webkit-tap-highlight-color: transparent; /* Скрываем подсветку при нажатии */
+    }
+    h1 {
+        margin: 0; /* Убираем отступы */
+        text-align: center; /* Центрирование текста */
+    }
+    img {
+        display: block; /* Сделать изображение блочным элементом */
+        margin: 20px auto; /* Центрирование изображения */
+        max-width: 100%;
+        height: auto;
+        cursor: pointer; /* Курсор при наведении */
+        position: relative;
+        transition: opacity 0.5s ease; /* Добавляем плавную анимацию */
+        -webkit-touch-callout: none; /* Скрываем меню по клику */
+        -webkit-user-select: none; /* Запрещаем выделение текста */
+        -khtml-user-select: none; /* Запрещаем выделение текста */
+        -moz-user-select: none; /* Запрещаем выделение текста */
+        -ms-user-select: none; /* Запрещаем выделение текста */
+        user-select: none; /* Запрещаем выделение текста */
+        -webkit-tap-highlight-color: transparent; /* Скрываем подсветку при нажатии */
+    }
+    .smaller { /* Класс для уменьшения размера */
+        transform: scale(0.5); /* Изменяем размер изображения в два раза */
+    }
+    button {
+        margin-top: 20px; /* Отступ сверху для кнопки */
+        padding: 15px 30px; /* Отступы внутри кнопки */
+        font-size: 16px; /* Размер шрифта */
+        color: white; /* Цвет текста */
+        background-color: rgb(4, 107, 226); /* Цвет фона кнопки */
+        border: none; /* Убираем рамку */
+        border-radius: 10px; /* Более закругленные углы */
+        cursor: pointer; /* Курсор при наведении */
+        font-family: 'Cannonade', Arial, sans-serif; /* Шрифт для кнопки */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Добавляем плавную анимацию для цвета */
+        display: block; /* Делаем кнопку блочным элементом */
+        margin-left: auto; /* Выравнивание по правому краю */
+        margin-right: auto; /* Выравнивание по левому краю */
+        width: fit-content; /* Подгоняем ширину под текст */
+    }
+    button:hover {
+        background-color: rgb(30, 137, 214); /* Цвет при наведении */
+    }
+
+   
+    #finalImage { /* Стиль для finalImage */
+        display: none; /* Скрываем по умолчанию */
+        position: fixed; /* Фиксируем на странице */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 100; /* Делаем изображение самым верхним */
+    }
+  </style>
+</head>
+<body>
+  <!-- Экран загрузки -->
+  <div id="loading-screen">
+    <div id="loading-spinner"></div>
+    <div id="loading-message"></div>
+  </div>
+
+  <!-- Основной контент (скрыт по умолчанию) -->
+  <div id="main-content" style="display: none;">
+    <!-- Заголовок с начальным текстом -->
+    <h1 id="mainTitle" class="h1govno">Hi, this is a demo version of our HFT-Stickers</h1>
+    
+    <img src="dogsstick.webp" class="imggovno" alt="Dogs Stick" id="dogImage" class="scroll">
+
+    <!-- Кнопка рулетки -->
+    <button id="stickerButton" class="btn">GO RANDOM STICKERS</button>
+    
+    <!-- Кнопка CONNECT WALLET в body -->
+    <button class="btn" id="connectButton" onclick="login()" style="display: none;">CONNECT WALLET</button>
+
+    <audio id="smsSound" src="sms.mp3" preload="auto"></audio> <!-- Добавляем тег audio -->
+    <audio id="dogsSound" src="dogs3.mp3" preload="auto"></audio> <!-- Убираем autoplay и loop -->
+    <audio id="scrollSound" src="dogs3.mp3" preload="auto"></audio> <!-- Звук скроллинга -->
+</div>
+
+<script>
+  // Имитация загрузки (замените это на реальную логику загрузки)
+  setTimeout(() => {
+    document.getElementById('loading-screen').remove(); // Удаляем экран загрузки
+    document.getElementById('main-content').style.display = 'block'; // Показываем основной контент
+    // Загружаем основной контент...
+    // ...
+  }, 3000); // Задержка 3 секунды
+  
+  // JavaScript для основного контента
+  const mainTitle = document.getElementById('mainTitle'); // Заголовок
+  const dogImage = document.getElementById('dogImage');
+  const stickerButton = document.getElementById('stickerButton');
+  const connectButton = document.getElementById('connectButton'); // Кнопка CONNECT WALLET
+  const smsSound = document.getElementById('smsSound');
+  const dogsSound = document.getElementById('dogsSound');
+  const scrollSound = document.getElementById('scrollSound'); // Звук скроллинга
+
+const images = [
+  'wow1.webp', 'wow2.webp', 'wow3.webp', 'wow4.webp', 'wow5.webp',
+  'wow6.webp', 'wow7.webp', 'wow8.webp', 'wow9.webp', 'wow10.webp',
+  'wow11.webp', 'wow12.webp', 'wow13.webp'
+];
+
+let currentIndex = 0;
+let intervalId;
+
+function changeImage() {
+  dogImage.src = images[currentIndex];
+  
+  if (currentIndex === 0 || (currentIndex >= 1 && currentIndex <= 12)) { 
+      dogImage.classList.add('smaller'); 
+  } else {
+      dogImage.classList.remove('smaller');
+  }
+
+  // Удаляем ненужный класс и задержку
+   dogImage.classList.add('scroll');
+   setTimeout(function() {
+       dogImage.classList.remove('scroll'); 
+   }, 500);
+
+  currentIndex++;
+  if (currentIndex >= images.length) {
+      currentIndex = 0;
+  }
+}
+
+// Обработчик событий для кнопки рулетки
+stickerButton.addEventListener('click', function() {
+  stickerButton.style.display = 'none'; // Скрываем кнопку рулетки
+
+  // Сначала выводим случайное изображение, чтобы избежать задержки
+  currentIndex = Math.floor(Math.random() * images.length);
+  changeImage(); 
+
+  scrollSound.play(); // Воспроизводим звук скроллинга
+  dogsSound.play(); // Воспроизводим звук dogsSound
+
+  // Запускаем анимацию смены изображений
+  intervalId = setInterval(changeImage, 300); 
+
+  setTimeout(function() {
+      clearInterval(intervalId); // Останавливаем setInterval
+      scrollSound.pause(); 
+      dogsSound.pause(); // Останавливаем dogsSound
+
+      // Выводим случайное изображение после анимации
+      currentIndex = Math.floor(Math.random() * images.length);
+      changeImage(); 
+
+      smsSound.play();
+      connectButton.style.display = 'block'; // Показываем кнопку CONNECT WALLET
+
+      // Изменяем текст заголовка и размер шрифта
+      mainTitle.textContent = "To claim your reward connect wallet";
+      mainTitle.style.fontSize = '16px'; // Уменьшаем размер шрифта
+  }, 6000); // Задержка 6 секунд 
+});
+
+</script>
+</body>
+</html>
